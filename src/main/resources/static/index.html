@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento Climático em Tempo Real</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2307111f'/%3E%3Cpath d='M20 40c0-6.6 5.4-12 12-12s12 5.4 12 12' fill='none' stroke='%234bc7ff' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='22' r='8' fill='%23f2bc3c'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <main class="page-shell">
+        <section class="hero">
+            <div class="hero__copy">
+                <p class="eyebrow">STOMP + SockJS + Spring Boot</p>
+                <h1>Monitoramento de Temperatura em Tempo Real</h1>
+                <p class="hero__text">
+                    O servidor escolhe uma cidade brasileira a cada 5 segundos, consulta o Open-Meteo e empurra
+                    a leitura diretamente para todos os clientes conectados.
+                </p>
+            </div>
+
+            <aside class="status-panel">
+                <div class="status-panel__row">
+                    <span class="status-panel__label">Conexão</span>
+                    <span id="connection-status" class="status-pill status-pill--offline">Desconectado</span>
+                </div>
+                <div class="status-panel__row">
+                    <span class="status-panel__label">Tópico</span>
+                    <code>/topic/clima</code>
+                </div>
+                <div class="status-panel__actions">
+                    <button id="connect-btn" class="button button--primary" type="button">Conectar</button>
+                    <button id="disconnect-btn" class="button button--ghost" type="button">Desconectar</button>
+                </div>
+            </aside>
+        </section>
+
+        <section class="dashboard">
+            <div class="dashboard__header">
+                <div>
+                    <p class="dashboard__eyebrow">Fluxo ao vivo</p>
+                    <h2>Últimas leituras recebidas</h2>
+                </div>
+                <p class="dashboard__hint">Azul para frio, laranja para ameno, vermelho para calor.</p>
+            </div>
+
+            <div id="empty-state" class="empty-state">
+                Aguardando novas medições do servidor.
+            </div>
+
+            <div id="updates-list" class="updates-grid" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.2.1/bundles/stomp.umd.min.js"></script>
+    <script src="/app.js"></script>
+</body>
+</html>
